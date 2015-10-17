@@ -214,7 +214,7 @@ public:
 	void GrayStretch(unsigned char *bmp,LONG width,LONG height,BYTE bx1,BYTE by1,BYTE bx2,BYTE by2);
 
 	/************************************************************************/
-	/* 函数名称： GrayStretch()
+	/* 函数名称： WindowTrans()
 		参数： unsigned char *bmp --------待处理的图像
 		LONG width,LONG height-------图像的宽度和高度
 		BYTE bLow	 -------- 窗口下限
