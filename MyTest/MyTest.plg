@@ -1,0 +1,46 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MyTest - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPF448.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\寒假文件\图像处理自己实现\MyTest\MyProcess.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPF448.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPF449.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/MyTest.pdb" /debug /machine:I386 /out:"Debug/MyTest.exe" /pdbtype:sept 
+".\Debug\BmpDlg.obj"
+".\Debug\Histogram.obj"
+".\Debug\MainFrm.obj"
+".\Debug\MyBitmap.obj"
+".\Debug\MyProcess.obj"
+".\Debug\MyTest.obj"
+".\Debug\MyTestDoc.obj"
+".\Debug\MyTestView.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MyTest.res"
+]
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPF449.tmp"
+<h3>Output Window</h3>
+Compiling...
+MyProcess.cpp
+f:\寒假文件\图像处理自己实现\mytest\myprocess.cpp(573) : warning C4101: 'TI' : unreferenced local variable
+f:\寒假文件\图像处理自己实现\mytest\myprocess.cpp(573) : warning C4101: 'TJ' : unreferenced local variable
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/MyTest.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\BmpDlg.sbr" ".\Debug\Histogram.sbr" ".\Debug\MainFrm.sbr" ".\Debug\MyBitmap.sbr" ".\Debug\MyProcess.sbr" ".\Debug\MyTest.sbr" ".\Debug\MyTestDoc.sbr" ".\Debug\MyTestView.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+MyTest.exe - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>
