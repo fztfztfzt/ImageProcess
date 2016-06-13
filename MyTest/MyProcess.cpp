@@ -65,14 +65,14 @@ void MyProcess::PointInvert(unsigned char *bmp,LONG width,LONG height)
 }
 void MyProcess::GrayStretch(unsigned char *bmp,LONG width,LONG height,BYTE bx1,BYTE by1,BYTE bx2,BYTE by2)
 {
-	LONG i,j;//循环变量
+	LONG i,j;//循锟斤拷锟斤拷锟斤拷
 	BYTE bMap[256];
 	for(i=0;i<=bx1;i++)
 	{
-		//判断bx1是否大于0（防止分母为0）
+		//锟叫讹拷bx1锟角凤拷锟斤拷锟斤拷0锟斤拷锟斤拷止锟斤拷母为0锟斤拷
 		if(bx1>0)
 		{
-			//线性变换
+			//锟斤拷锟皆变换
 			bMap[i] = (BYTE) by1*i/bx1;
 		}else 
 		{
@@ -81,10 +81,10 @@ void MyProcess::GrayStretch(unsigned char *bmp,LONG width,LONG height,BYTE bx1,B
 	}
 	for(;i<=bx2;i++)
 	{
-		//判断bx2是否大于0（防止分母为0）
+		//锟叫讹拷bx2锟角凤拷锟斤拷锟斤拷0锟斤拷锟斤拷止锟斤拷母为0锟斤拷
 		if(bx2!=bx1)
 		{
-			//线性变换
+			//锟斤拷锟皆变换
 			bMap[i] = (BYTE) (by2-by1)*(i-bx1)/(bx2-bx1);
 		}else 
 		{
@@ -215,7 +215,7 @@ void MyProcess::PointSML(BYTE *bmp,LONG width,LONG height,BYTE bNum,int *Nu,floa
 	double sum ;
 	if(type==0) sum = width*height/3;
 	else if(type==1) sum=width*height;
-	//计算原始累计直方图
+	//锟斤拷锟斤拷原始锟桔硷拷直锟斤拷图
 	for(i=0;i<256;i++)
 	{
 		if(i==0)
@@ -243,19 +243,19 @@ void MyProcess::PointSML(BYTE *bmp,LONG width,LONG height,BYTE bNum,int *Nu,floa
 			}
 		}
 	}
-	//计算规定累计直方图
+	//锟斤拷锟斤拷锟芥定锟桔硷拷直锟斤拷图
 	for(i=1;i<bNum;i++)
 	{
 		Pu[i]=Pu[i-1]+Pu[i];
 	}
-	//确定映射对应关系
+	//确锟斤拷映锟斤拷锟斤拷应锟斤拷系
 	for(i=0;i<256;i++)
 	{
-		//最接近的规定直方图灰度级
+		//锟斤拷锟接斤拷锟侥规定直锟斤拷图锟揭度硷拷
 		int m_r=0,m_g=0,m_b=0;
-		//最小差值
+		//锟斤拷小锟斤拷值
 		float f_r=1,f_g=1,f_b=1;
-		//寻找最小差值
+		//寻锟斤拷锟斤拷小锟斤拷值
 		for(j=0;j<bNum;j++)
 		{
 			float f_now=abs(temp_r[i]-Pu[j]);
@@ -299,38 +299,38 @@ void MyProcess::PointSML(BYTE *bmp,LONG width,LONG height,BYTE bNum,int *Nu,floa
 }
 void MyProcess::FFT(std::complex<double>*TD,std::complex<double>*FD,int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG	k;
 	
-	// 中间变量
+	// 锟叫硷拷锟斤拷锟斤拷
 	int		p;
 	
-	// 角度
+	// 锟角讹拷
 	double	angle;
 	
 	complex<double> *W,*X1,*X2,*X;
 	
-	// 计算付立叶变换点数
+	// 锟斤拷锟姐付锟斤拷叶锟戒换锟斤拷锟斤拷
 	LONG N = 1 << r;
 	
-	// 分配运算所需存储器
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟芥储锟斤拷
 	W  = new complex<double>[N / 2];
 	X1 = new complex<double>[N];
 	X2 = new complex<double>[N];
 	
-	// 计算加权系数
+	// 锟斤拷锟斤拷锟斤拷权系锟斤拷
 	for(i = 0; i < N / 2; i++)
 	{
 		angle = -i * PI * 2 / N;
 		W[i] = complex<double> (cos(angle), sin(angle));
 	}
 	
-	// 将时域点写入X1
+	// 锟斤拷时锟斤拷锟斤拷写锟斤拷X1
 	memcpy(X1, TD, sizeof(complex<double>) * N);
 	
-	// 采用蝶形算法进行快速付立叶变换
+	// 锟斤拷锟矫碉拷锟斤拷锟姐法锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for(k = 0; k < r; k++)
 	{
 		for(j = 0; j < 1 << k; j++)
@@ -347,7 +347,7 @@ void MyProcess::FFT(std::complex<double>*TD,std::complex<double>*FD,int r)
 		X2 = X;
 	}
 	
-	// 重新排序
+	// 锟斤拷锟斤拷锟斤拷锟斤拷
 	for(j = 0; j < N; j++)
 	{
 		p = 0;
@@ -361,59 +361,59 @@ void MyProcess::FFT(std::complex<double>*TD,std::complex<double>*FD,int r)
 		FD[j] = X1[p];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete W;
 	delete X1;
 	delete X2;
 }
 void MyProcess::IFFT(complex<double> * FD, complex<double> * TD, int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	int	i;
 	
 	complex<double> *X;
 	
-	// 计算付立叶变换点数
+	// 锟斤拷锟姐付锟斤拷叶锟戒换锟斤拷锟斤拷
 	LONG N = 1<<r;
 	
-	// 分配运算所需存储器
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟芥储锟斤拷
 	X = new complex<double>[N];
 	
-	// 将频域点写入X
+	// 锟斤拷频锟斤拷锟斤拷写锟斤拷X
 	memcpy(X, FD, sizeof(complex<double>) * N);
 	
-	// 求共轭
+	// 锟斤拷锟斤拷锟斤拷
 	for (i = 0; i < N; i++)
 	{
 		X[i] = complex<double> (X[i].real(), -X[i].imag());
 	}
 	
-	// 调用快速付立叶变换
+	// 锟斤拷锟矫匡拷锟劫革拷锟斤拷叶锟戒换
 	FFT(X, TD, r);
 	
-	// 求时域点的共轭
+	// 锟斤拷时锟斤拷锟斤拷锟侥癸拷锟斤拷
 	for (i = 0; i < N; i++)
 	{
 		TD[i] = complex<double> (TD[i].real() / N, -TD[i].imag() / N);
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete X;
 }
 BOOL MyProcess::Fourier(std::complex<double> * TD, LONG width, LONG height, std::complex<double> * FD)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -426,53 +426,53 @@ BOOL MyProcess::Fourier(std::complex<double> * TD, LONG width, LONG height, std:
 		hp++;
 	}
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	complex<double> *TempT, *TempF;
 	TempT = new complex<double>[h];
 	TempF = new complex<double>[h];
 	
-	// 对y方向进行快速付立叶变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempT[j] = TD[j * w * 3 + i];
 		
-		// 一维快速傅立叶变换
+		// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 		FFT(TempT, TempF, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TD[j * w * 3 + i] = TempF[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempT;
 	delete TempF;
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	TempT = new complex<double>[w];
 	TempF = new complex<double>[w];
 	
-	// 对x方向进行快速付立叶变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempT[j] = TD[i * w * 3 + j * 3 + k];
 			
-			// 一维快速傅立叶变换
+			// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 			FFT(TempT, TempF, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				FD[i * w * 3 + j * 3 + k] = TempF[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempT;
 	delete TempF;
 	
@@ -480,18 +480,18 @@ BOOL MyProcess::Fourier(std::complex<double> * TD, LONG width, LONG height, std:
 }
 BOOL MyProcess::IFourier(BYTE *TD, LONG width, LONG height, std::complex<double> * FD)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while(w < width/3)
 	{
 		w *= 2;
@@ -504,54 +504,54 @@ BOOL MyProcess::IFourier(BYTE *TD, LONG width, LONG height, std::complex<double>
 		hp++;
 	}
 	
-	// 计算图像每行的字节数
+	// 锟斤拷锟斤拷图锟斤拷每锟叫碉拷锟街斤拷锟斤拷
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	complex<double> *TempT, *TempF;
 	TempT = new complex<double>[w];
 	TempF = new complex<double>[w];
 	
-	// 对x方向进行快速付立叶变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempF[j] = FD[i * w * 3 + j * 3 + k];
 			
-			// 一维快速傅立叶变换
+			// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 			IFFT(TempF, TempT, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				FD[i * w * 3 + j * 3 + k] = TempT[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempT;
 	delete TempF;
 	
 	TempT = new complex<double>[h];
 	TempF = new complex<double>[h];
 	
-	// 对y方向进行快速付立叶变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempF[j] = FD[j * w * 3 + i];
 		
-		// 一维快速傅立叶变换
+		// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 		IFFT(TempF, TempT, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			FD[j * w * 3 + i] = TempT[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempT;
 	delete TempF;
 
@@ -568,15 +568,15 @@ BOOL MyProcess::IFourier(BYTE *TD, LONG width, LONG height, std::complex<double>
 }
 BOOL MyProcess::BmpTD(BYTE *bmp,LONG width,LONG height,complex<double>*TD)
 {
-	LONG i,j;//循环变量
-	// 中间变量
+	LONG i,j;//循锟斤拷锟斤拷锟斤拷
+	// 锟叫硷拷锟斤拷锟斤拷
 	LONG TI,TJ;
-	// 进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while(w < width/3)
 	{
 		w *= 2;
@@ -586,25 +586,25 @@ BOOL MyProcess::BmpTD(BYTE *bmp,LONG width,LONG height,complex<double>*TD)
 	{
 		h *= 2;
 		hp++;
-	}// 分配内存
+	}// 锟斤拷锟斤拷锟节达拷
 	
-	// 行
+	// 锟斤拷
 	for(i = 0; i < h; i++)
 	{
-		// 列
+		// 锟斤拷
 		for(j = 0; j < 3 * w; j++)
 		{
 			if(i < height && j < width)
 			{
-				// 获取时域数值
+				// 锟斤拷取时锟斤拷锟斤拷值
 				unsigned char Value = bmp[i*width+j];
 				
-				// 时域赋值
+				// 时锟斤拷锟斤拷值
 				TD[w * i * 3 + j] = complex<double>(Value, 0.0f);
 			}
 			else
 			{
-				// 否则补零
+				// 锟斤拷锟斤拷锟斤拷锟斤拷
 				TD[w * i * 3 + j] = complex<double>(0.0f, 0.0f);
 			}
 		}
@@ -613,16 +613,16 @@ BOOL MyProcess::BmpTD(BYTE *bmp,LONG width,LONG height,complex<double>*TD)
 }
 BOOL MyProcess::BmpFourier(BYTE* bmp,LONG width,LONG height)
 {
-	LONG i,j;//循环变量
-	// 中间变量
+	LONG i,j;//循锟斤拷锟斤拷锟斤拷
+	// 锟叫硷拷锟斤拷锟斤拷
 	double	dTemp;
 	LONG TI,TJ;
-	// 进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while(w < width/3)
 	{
 		w *= 2;
@@ -632,42 +632,42 @@ BOOL MyProcess::BmpFourier(BYTE* bmp,LONG width,LONG height)
 	{
 		h *= 2;
 		hp++;
-	}// 分配内存
+	}// 锟斤拷锟斤拷锟节达拷
 	complex<double> *FD, *TD, *TempD;
 	FD = new complex<double>[w * h * 3];
 	TD = new complex<double>[w * h * 3];
 	TempD =  new complex<double>[w * h * 3];
 	
-	// 行
+	// 锟斤拷
 	for(i = 0; i < h; i++)
 	{
-		// 列
+		// 锟斤拷
 		for(j = 0; j < 3 * w; j++)
 		{
 			if(i < height && j < width)
 			{
-				// 获取时域数值
+				// 锟斤拷取时锟斤拷锟斤拷值
 				unsigned char Value = bmp[i*width+j];
 				
-				// 时域赋值
+				// 时锟斤拷锟斤拷值
 				TD[w * i * 3 + j] = complex<double>(Value, 0.0f);
 			}
 			else
 			{
-				// 否则补零
+				// 锟斤拷锟斤拷锟斤拷锟斤拷
 				TD[w * i * 3 + j] = complex<double>(0.0f, 0.0f);
 			}
 		}
 	}
 	
-	// 进行频谱分析
+	// 锟斤拷锟斤拷频锟阶凤拷锟斤拷
 	if (Fourier(TD, width, height, FD) == FALSE)
 		return FALSE;
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete []TD;
 	
-	// 将原点放置于图像中心位置
+	// 锟斤拷原锟斤拷锟斤拷锟斤拷锟斤拷图锟斤拷锟斤拷锟斤拷位锟斤拷
 	for(i = 0; i < h; i++)
 	{
 		for(j = 0; j < 3 * w; j++)
@@ -682,144 +682,144 @@ BOOL MyProcess::BmpFourier(BYTE* bmp,LONG width,LONG height)
 			else 
 				TJ = j - 3 * w / 2;
 			
-			// 保存转换后的频谱图像
+			// 锟斤拷锟斤拷转锟斤拷锟斤拷锟斤拷频锟斤拷图锟斤拷
 			TempD[i * w * 3 + j] = FD[TI * w * 3 + TJ];
 		}
 	}
 	
-	// 行
+	// 锟斤拷
 	for(i = (int)(h - height) / 2; i < (int)(h + height) / 2; i++)
 	{
-		// 列
+		// 锟斤拷
 		for(j = (int)(w * 3 - width) / 2; j < (int)(w * 3 + width) / 2; j += 3)
 		{
-			// 计算频谱
+			// 锟斤拷锟斤拷频锟斤拷
 			dTemp = sqrt(TempD[w * 3 * i + j].real() * TempD[w * 3 * i + j].real() + 
 				TempD[w * 3 * i + j].imag() * TempD[w * 3 * i + j].imag()) / 100;
 			
-			// 判断是否超过255
+			// 锟叫讹拷锟角否超癸拷255
 			if (dTemp > 255)
 			{
-				// 对于超过的，直接设置为255
+				// 锟斤拷锟节筹拷锟斤拷锟侥ｏ拷直锟斤拷锟斤拷锟斤拷为255
 				dTemp = 255;
 			}
 			
-			// 限制为原图大小范围
+			// 锟斤拷锟斤拷为原图锟斤拷小锟斤拷围
 			TI = i - (h - height) / 2;
 			TJ = j / 3 - (w - width/3) / 2;
 			
-			// 对应象素指针
+			// 锟斤拷应锟斤拷锟斤拷指锟斤拷
 			LONG p = width * TI + TJ * 3;
 			
-			// 更新源图像
+			// 锟斤拷锟斤拷源图锟斤拷
 			bmp[p] = (BYTE) (dTemp);
 			bmp[p+1] = (BYTE) (dTemp);
 			bmp[p+2] = (BYTE) (dTemp);
 		}
 	}
-	// 删除临时变量
+	// 删锟斤拷锟斤拷时锟斤拷锟斤拷
 	delete []FD;
 	delete []TempD;
 	return TRUE;
 }
 void MyProcess::DCT(double *f, double *F, int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	int		i;
 	
-	// 中间变量
+	// 锟叫硷拷锟斤拷锟斤拷
 	double	dTemp;
 	
-	// 计算离散余弦变换点数
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟斤拷锟斤拷
 	LONG N = 1<<r;
 	
-	// 申请并分配内存
+	// 锟斤拷锟诫并锟斤拷锟斤拷锟节达拷
 	complex<double> *XIn;
 	complex<double> *XOut;
 	XIn = new complex<double>[N * 2];
 	XOut = new complex<double>[N * 2];
 	
-	// 赋初值为0
+	// 锟斤拷锟斤拷值为0
 	memset(XIn, 0, sizeof(complex<double>) * N * 2);
 	memset(XOut, 0, sizeof(complex<double>) * N * 2);
 	
-	// 将时域点写入数组X
+	// 锟斤拷时锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷X
 	for (i = 0; i < N; i++)
 		XIn[i] = complex<double>(*(f + i), 0);
 	
-	// 调用快速付立叶变换
+	// 锟斤拷锟矫匡拷锟劫革拷锟斤拷叶锟戒换
 	FFT(XIn, XOut, r + 1);
 	
-	// 调整系数
+	// 锟斤拷锟斤拷系锟斤拷
 	dTemp = 1 / sqrt(N);
 	
-	// 求F[0]
+	// 锟斤拷F[0]
 	F[0] = XOut[0].real() * dTemp;
 	
 	dTemp *= sqrt(2);
 	
-	// 求F[u]
+	// 锟斤拷F[u]
 	for (i = 1; i < N; i++)
 		*(F + i) = (XOut[i].real() * cos(i * PI / (N * 2)) + XOut[i].imag() * sin(i * PI / (N * 2))) * dTemp;
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete[] XIn;
 	delete[] XOut;
 }
 void MyProcess::IDCT(double *F, double *f, int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	int		i;
 	
-	// 中间变量
+	// 锟叫硷拷锟斤拷锟斤拷
 	double	dTemp, d0;
 	
-	// 计算离散余弦变换点数
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟斤拷锟斤拷
 	LONG N = 1<<r;
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	complex<double> *XIn;
 	complex<double> *XOut;
 	XIn = new complex<double>[N * 2];
 	XOut = new complex<double>[N * 2];
 	
-	// 赋初值为0
+	// 锟斤拷锟斤拷值为0
 	memset(XIn, 0, sizeof(complex<double>) * N * 2);
 	memset(XOut, 0, sizeof(complex<double>) * N * 2);
 	
-	// 将频域变换后点写入数组X
+	// 锟斤拷频锟斤拷锟戒换锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷X
 	for (i = 0; i < N; i++)
 		XIn[i] = complex<double>(F[i] * cos(i * PI / (N * 2)), F[i] * sin(i * PI / (N * 2)));
 	
-	// 调用快速付立叶反变换
+	// 锟斤拷锟矫匡拷锟劫革拷锟斤拷叶锟斤拷锟戒换
 	IFFT(XIn, XOut, r + 1);
 	
-	// 调整系数
+	// 锟斤拷锟斤拷系锟斤拷
 	dTemp = sqrt(2.0 / N);
 	d0 = (sqrt(1.0 / N) - dTemp) * F[0];
 	
-	// 计算f(x)
+	// 锟斤拷锟斤拷f(x)
 	for (i = 0; i < N; i++)
 		f[i] = d0 + XOut[i].real()* dTemp * 2 * N;
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete[] XIn;
 	delete[] XOut;
 }
 BOOL MyProcess::FreqDCT(double *f, double *F, LONG width, LONG height)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -832,52 +832,52 @@ BOOL MyProcess::FreqDCT(double *f, double *F, LONG width, LONG height)
 		hp++;
 	}
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double* TempIn = new double[h];
 	double* TempOut = new double[h];
 	
-	// 对y方向进行离散余弦变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempIn[j] = f[j * w * 3 + i];
 		
-		// 一维快速离散余弦变换
+		// 一维锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 		DCT(TempIn, TempOut, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			f[j * w * 3 + i] = TempOut[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	TempIn = new double[w];
 	TempOut = new double[w];
 	
-	// 对x方向进行快速离散余弦变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟斤拷锟斤拷散锟斤拷锟揭变换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempIn[j] = f[i * w * 3 + j * 3 + k];
 			
-			// 一维快速离散余弦变换
+			// 一维锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 			DCT(TempIn, TempOut, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				F[i * w * 3 + j * 3 + k] = TempOut[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
@@ -885,18 +885,18 @@ BOOL MyProcess::FreqDCT(double *f, double *F, LONG width, LONG height)
 }
 BOOL MyProcess::IFreqDCT(double *f, double *F, LONG width, LONG height)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -909,51 +909,51 @@ BOOL MyProcess::IFreqDCT(double *f, double *F, LONG width, LONG height)
 		hp++;
 	}
 		
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double* TempIn = new double[w];
 	double* TempOut = new double[w];
 	
-	// 对x方向进行快速付立叶变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempIn[j] = F[i * w * 3 + j * 3 + k];
 			
-			// 一维快速傅立叶变换
+			// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 			IDCT(TempIn, TempOut, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				F[i * w * 3 + j * 3 + k] = TempOut[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
 	TempIn = new double[h];
 	TempOut = new double[h];
 	
-	// 对y方向进行快速付立叶变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempIn[j] = F[j * w * 3 + i];
 		
-		// 一维快速傅立叶变换
+		// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 		IDCT(TempIn, TempOut, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			F[j * w * 3 + i] = TempOut[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
@@ -970,17 +970,17 @@ BOOL MyProcess::IFreqDCT(double *f, double *F, LONG width, LONG height)
 }
 BOOL MyProcess::BmpDCT(BYTE* bmp,LONG width,LONG height)
 {
-	// 进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	
-	// 进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -993,11 +993,11 @@ BOOL MyProcess::BmpDCT(BYTE* bmp,LONG width,LONG height)
 		hp++;
 	}
 
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double *f = new double[w * h * 3];
 	double *F = new double[w * h * 3];
 
-	// 向时域赋值并补零
+	// 锟斤拷时锟斤拷锟斤拷值锟斤拷锟斤拷锟斤拷
 	for (i = 0; i < h; i++)
 	{
 		for (j = 0; j < w * 3; j++)
@@ -1009,57 +1009,57 @@ BOOL MyProcess::BmpDCT(BYTE* bmp,LONG width,LONG height)
 		}
 	}
 
-	// 进行频谱分析
+	// 锟斤拷锟斤拷频锟阶凤拷锟斤拷
 	if (FreqDCT(f, F,width, height) == FALSE)
 		return FALSE;
 
-	// 更新所有象素
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
-			// 判断是否超过255
+			// 锟叫讹拷锟角否超癸拷255
 			if (fabs(F[i * w * 3 + j]) > 255)
 			{
-				// 对于超过的，直接设置为255
+				// 锟斤拷锟节筹拷锟斤拷锟侥ｏ拷直锟斤拷锟斤拷锟斤拷为255
 				bmp[width * (height - 1 - i) + j] = 255;
 			}
 			else
 			{
-				// 如果没有超过，则按实际计算结果赋值
+				// 锟斤拷锟斤拷没锟叫筹拷锟斤拷锟斤拷锟斤拷锟斤拷实锟绞硷拷锟斤拷锟斤拷锟斤拷锟斤拷值
 				bmp[width * (height - 1 - i) + j] = fabs(F[i * w * 3 + j]);
 			}
 		}
 	}
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete []f;
 	delete[] F;
 
-	// 返回
+	// 锟斤拷锟斤拷
 	return TRUE;
 }
 void MyProcess::WALSH(double *f, double *F, int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG	k;
 	
-	// 中间变量
+	// 锟叫硷拷锟斤拷锟斤拷
 	int		p;	
 	double* X;
 	
-	// 计算快速沃尔什变换点数
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟街讹拷什锟戒换锟斤拷锟斤拷
 	LONG N = 1 << r;
 	
-	// 分配运算所需的数组
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	double* X1 = new double[N];
 	double* X2 = new double[N];
 	
-	// 将时域点写入数组X1
+	// 锟斤拷时锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷X1
 	memcpy(X1, f, sizeof(double) * N);
 	
-	// 蝶形运算
+	// 锟斤拷锟斤拷锟斤拷锟斤拷
 	for (k = 0; k < r; k++)
 	{
 		for (j = 0; j < 1<<k; j++)
@@ -1072,13 +1072,13 @@ void MyProcess::WALSH(double *f, double *F, int r)
 			}
 		}
 		
-		// 互换X1和X2  
+		// 锟斤拷锟斤拷X1锟斤拷X2  
 		X = X1;
 		X1 = X2;
 		X2 = X;
 	}
 	
-	// 调整系数
+	// 锟斤拷锟斤拷系锟斤拷
 	for (j = 0; j < N; j++)
 	{
 		p = 0;
@@ -1093,39 +1093,39 @@ void MyProcess::WALSH(double *f, double *F, int r)
 		F[j] = X1[p] / N;
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete X1;
 	delete X2;
 }
 void MyProcess::IWALSH(double *F, double *f, int r)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	int		i;
 	
-	// 计算变换点数
+	// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 	LONG N = 1 << r;
 	
-	// 调用快速沃尔什－哈达玛变换进行反变换
+	// 锟斤拷锟矫匡拷锟斤拷锟街讹拷什锟斤拷锟斤拷锟斤拷锟斤拷锟戒换锟斤拷锟叫凤拷锟戒换
 	WALSH(F, f, r);
 	
-	// 调整系数
+	// 锟斤拷锟斤拷系锟斤拷
 	for (i = 0; i < N; i++)
 		f[i] *= N;
 }
 BOOL MyProcess::FreqWALSH(double *f, double *F, LONG width, LONG height)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -1138,52 +1138,52 @@ BOOL MyProcess::FreqWALSH(double *f, double *F, LONG width, LONG height)
 		hp++;
 	}
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double* TempIn = new double[h];
 	double* TempOut = new double[h];
 	
-	// 对y方向进行离散余弦变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempIn[j] = f[j * w * 3 + i];
 		
-		// 一维快速离散余弦变换
+		// 一维锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 		WALSH(TempIn, TempOut, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			f[j * w * 3 + i] = TempOut[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	TempIn = new double[w];
 	TempOut = new double[w];
 	
-	// 对x方向进行快速离散余弦变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟斤拷锟斤拷散锟斤拷锟揭变换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempIn[j] = f[i * w * 3 + j * 3 + k];
 			
-			// 一维快速离散余弦变换
+			// 一维锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换
 			WALSH(TempIn, TempOut, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				F[i * w * 3 + j * 3 + k] = TempOut[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
@@ -1191,18 +1191,18 @@ BOOL MyProcess::FreqWALSH(double *f, double *F, LONG width, LONG height)
 }
 BOOL MyProcess::IFreqWALSH(double *f, double *F, LONG width, LONG height)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	LONG    k;
 	
-	// 赋初值
+	// 锟斤拷锟斤拷值
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -1215,51 +1215,51 @@ BOOL MyProcess::IFreqWALSH(double *f, double *F, LONG width, LONG height)
 		hp++;
 	}
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double* TempIn = new double[w];
 	double* TempOut = new double[w];
 	
-	// 对x方向进行快速付立叶变换
+	// 锟斤拷x锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < h; i++)
 	{
 		for (k = 0; k < 3; k++)
 		{
-			// 抽取数据
+			// 锟斤拷取锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				TempIn[j] = F[i * w * 3 + j * 3 + k];
 			
-			// 一维快速傅立叶变换
+			// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 			IWALSH(TempIn, TempOut, wp);
 			
-			// 保存变换结果
+			// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 			for (j = 0; j < w; j++)
 				F[i * w * 3 + j * 3 + k] = TempOut[j];
 		}
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
 	TempIn = new double[h];
 	TempOut = new double[h];
 	
-	// 对y方向进行快速付立叶变换
+	// 锟斤拷y锟斤拷锟斤拷锟斤拷锟叫匡拷锟劫革拷锟斤拷叶锟戒换
 	for (i = 0; i < w * 3; i++)
 	{
-		// 抽取数据
+		// 锟斤拷取锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			TempIn[j] = F[j * w * 3 + i];
 		
-		// 一维快速傅立叶变换
+		// 一维锟斤拷锟劫革拷锟斤拷叶锟戒换
 		IWALSH(TempIn, TempOut, hp);
 		
-		// 保存变换结果
+		// 锟斤拷锟斤拷锟戒换锟斤拷锟斤拷
 		for (j = 0; j < h; j++)
 			F[j * w * 3 + i] = TempOut[j];
 	}
 	
-	// 释放内存
+	// 锟酵凤拷锟节达拷
 	delete TempIn;
 	delete TempOut;
 	
@@ -1276,17 +1276,17 @@ BOOL MyProcess::IFreqWALSH(double *f, double *F, LONG width, LONG height)
 }
 BOOL MyProcess::BmpWalsh(BYTE* bmp,LONG width,LONG height)
 {
-	// 循环变量
+	// 循锟斤拷锟斤拷锟斤拷
 	LONG	i;
 	LONG	j;
 	
-	// 进行沃尔什——哈达玛变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟街讹拷什锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行离散余弦变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟揭变换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while (w < width/3)
 	{
 		w *= 2;
@@ -1299,11 +1299,11 @@ BOOL MyProcess::BmpWalsh(BYTE* bmp,LONG width,LONG height)
 		hp++;
 	}
 	
-	// 分配内存
+	// 锟斤拷锟斤拷锟节达拷
 	double *f = new double[w * h * 3];
 	double *F = new double[w * h * 3];
 	
-	// 向时域赋值并补零
+	// 锟斤拷时锟斤拷锟斤拷值锟斤拷锟斤拷锟斤拷
 	for (i = 0; i < h; i++)
 	{
 		for (j = 0; j < w * 3; j++)
@@ -1315,34 +1315,34 @@ BOOL MyProcess::BmpWalsh(BYTE* bmp,LONG width,LONG height)
 		}
 	}
 
-	// 进行频谱分析
+	// 锟斤拷锟斤拷频锟阶凤拷锟斤拷
 	if (FreqWALSH(f, F,width, height) == FALSE)
 		return FALSE;
 	
-	// 更新所有象素
+	// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
 		{
-			// 判断是否超过255
+			// 锟叫讹拷锟角否超癸拷255
 			if (fabs(F[i * w * 3 + j] * 1000) > 255)
 			{
-				// 对于超过的，直接设置为255
+				// 锟斤拷锟节筹拷锟斤拷锟侥ｏ拷直锟斤拷锟斤拷锟斤拷为255
 				bmp[width * (height - 1 - i) + j] = 255;
 			}
 			else
 			{
-				// 如果没有超过，则按实际计算结果赋值
+				// 锟斤拷锟斤拷没锟叫筹拷锟斤拷锟斤拷锟斤拷锟斤拷实锟绞硷拷锟斤拷锟斤拷锟斤拷锟斤拷值
 				bmp[width * (height - 1 - i) + j]= fabs(F[i * w * 3 + j] * 1000);
 			}
 		}
 	}
 
-	//释放内存
+	//锟酵凤拷锟节达拷
 	delete[] f;
 	delete[] F;
 
-	// 返回
+	// 锟斤拷锟斤拷
 	return TRUE;
 }
 void MyProcess::BmpFilter(BYTE *desBmp,BYTE *srcBmp,LONG width,LONG height)
@@ -1359,16 +1359,16 @@ void MyProcess::BmpFilter(BYTE *desBmp,BYTE *srcBmp,LONG width,LONG height)
 void MyProcess::KernelFilter(BYTE *bmp,LONG width,LONG height,KERNEL kernel,int type)
 {
 	LONG i,j;
-	//申请一个临时空间，由1包围bmp图像，方便进行模版处理
+	//锟斤拷锟斤拷一锟斤拷锟斤拷时锟秸间，锟斤拷1锟斤拷围bmp图锟今，凤拷锟斤拷锟斤拷锟斤拷模锟芥处锟斤拷
 	BYTE *temp_bmp = new BYTE[(width+6)*(height+2)];
 	BmpFilter(temp_bmp,bmp,width,height);
-	//模版滤波
+	//模锟斤拷锟剿诧拷
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
 		{
 			LONG k,m,temp=0;
-			for(k=-1;k<kernel.Dimention-1;k++)
-				for(m=-1;m<kernel.Dimention-1;m++)
+			for(k=-1;k<kernel.Dimension-1;k++)
+				for(m=-1;m<kernel.Dimension-1;m++)
 				{
 					int a = temp_bmp[(i+k)*(width+6)+j+m*3];
 					int b = kernel.Element[k+1][m+1];
@@ -1376,7 +1376,7 @@ void MyProcess::KernelFilter(BYTE *bmp,LONG width,LONG height,KERNEL kernel,int 
 				}
 			temp/=kernel.Divisor;
 			//////////////////////////////////////////////////////////////////////////
-			//此处注意，不应将值给待处理对象，而应传给未处理的原图像
+			//锟剿达拷注锟解，锟斤拷应锟斤拷值锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟襟，讹拷应锟斤拷锟斤拷未锟斤拷锟斤拷锟斤拷原图锟斤拷
 		//	temp_bmp[i*(width+6)+j] = (BYTE)temp;
 			if(type==1) 
 			{
@@ -1389,11 +1389,11 @@ void MyProcess::KernelFilter(BYTE *bmp,LONG width,LONG height,KERNEL kernel,int 
 void MyProcess::MedianFilter(BYTE *bmp,LONG width,LONG height)
 {
 	LONG i,j;
-	//申请一个临时空间，由1包围bmp图像，方便进行模版处理
+	//锟斤拷锟斤拷一锟斤拷锟斤拷时锟秸间，锟斤拷1锟斤拷围bmp图锟今，凤拷锟斤拷锟斤拷锟斤拷模锟芥处锟斤拷
 	BYTE *temp_bmp = new BYTE[(width+6)*(height+2)];
 	BmpFilter(temp_bmp,bmp,width,height);
-	//中值滤波
-	//待排序值
+	//锟斤拷值锟剿诧拷
+	//锟斤拷锟斤拷锟斤拷值
 	int value[9];
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
@@ -1406,7 +1406,7 @@ void MyProcess::MedianFilter(BYTE *bmp,LONG width,LONG height)
 				}
 				sort(value,value+9);
 				//////////////////////////////////////////////////////////////////////////
-				//此处注意，不应将值给待处理对象，而应传给未处理的原图像
+				//锟剿达拷注锟解，锟斤拷应锟斤拷值锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟襟，讹拷应锟斤拷锟斤拷未锟斤拷锟斤拷锟斤拷原图锟斤拷
 				//	temp_bmp[i*(width+6)+j] = (BYTE)temp;
 				bmp[(i-1)*width+j-3] = value[4];
 		}
@@ -1414,14 +1414,14 @@ void MyProcess::MedianFilter(BYTE *bmp,LONG width,LONG height)
 }
 void MyProcess::ButterworthL(BYTE *bmp,LONG width,LONG height,float fd,int type)
 {
-	LONG i,j;//循环变量
-	// 进行付立叶变换的宽度和高度（2的整数次方）
+	LONG i,j;//循锟斤拷锟斤拷锟斤拷
+	// 锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	LONG w = 1;
 	LONG h = 1;
 	int wp = 0;
 	int hp = 0;
 	
-	// 计算进行付立叶变换的宽度和高度（2的整数次方）
+	// 锟斤拷锟斤拷锟斤拷锟叫革拷锟斤拷叶锟戒换锟侥匡拷锟饺和高度ｏ拷2锟斤拷锟斤拷锟斤拷锟轿凤拷锟斤拷
 	while(w < width/3)
 	{
 		w *= 2;
@@ -1431,28 +1431,28 @@ void MyProcess::ButterworthL(BYTE *bmp,LONG width,LONG height,float fd,int type)
 	{
 		h *= 2;
 		hp++;
-	}// 分配内存
+	}// 锟斤拷锟斤拷锟节达拷
 	complex<double>*TD;
 	complex<double>*FD;
 	TD = new complex<double>[w * h * 3];
 	FD = new complex<double> [w*h*3];
 	BmpTD(bmp,width,height,TD);	
 	this->Fourier(TD,width,height,FD);
-	//当前频率
+	//锟斤拷前频锟斤拷
 	float now_FD;
 	for(i=0;i<h;i++)
 		for(j=0;j<w*3;j++)
 		{
-			//计算距离
+			//锟斤拷锟斤拷锟斤拷锟斤拷
 			int k=(int)j/3;
 			now_FD = (float)sqrt(i*i+k*k);
 
 			if(type==0) FD[i*3*w+j] *=complex<double>(1/(1+0.414*(now_FD/fd)*(now_FD/fd)),0.0f); 
 			else if(type==1) FD[i*3*w+j] *=complex<double>(1/(1+0.414*(fd/now_FD)*(fd/now_FD)),0.0f); 
 		}
-	//频域->时域
+	//频锟斤拷->时锟斤拷
 	if(this->IFourier(bmp,width,height,FD)==false) return;
-	//释放内存	
+	//锟酵凤拷锟节达拷	
 	delete []FD;
 	delete []TD;
 }
@@ -1460,13 +1460,13 @@ void MyProcess::SplitRoberts(BYTE *bmp,LONG width,LONG height,int type)
 {
 	LONG i,j;
 	BYTE *temp_bmp = new BYTE [(width+6)*(height+2)];
-	//填充temp_bmp
+	//锟斤拷锟斤拷temp_bmp
 	BmpFilter(temp_bmp,bmp,width,height);
-	//2*2模版
+	//2*2模锟斤拷
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
 		{
-			if(type==0)//罗伯特交叉算子
+			if(type==0)//锟睫诧拷锟截斤拷锟斤拷锟斤拷锟斤拷
 			{
 				int a = temp_bmp[i*(width+6)+j];
 				int b = temp_bmp[(i+1)*(width+6)+j+1];
@@ -1474,7 +1474,7 @@ void MyProcess::SplitRoberts(BYTE *bmp,LONG width,LONG height,int type)
 				int d = temp_bmp[(i+1)*(width+6)+j];
 				bmp[(i-1)*width+j-3] = sqrt((a-b)*(a-b)+(c-d)*(c-d));
 			}
-			else if(type==1)//薄瑞维特边缘算子
+			else if(type==1)//锟斤拷锟斤拷维锟截憋拷缘锟斤拷锟斤拷
 			{
 				int a = temp_bmp[i*(width+6)+j] * -1;
 				a+= temp_bmp[i*(width+6)+j+2];
@@ -1495,7 +1495,7 @@ void MyProcess::SplitRoberts(BYTE *bmp,LONG width,LONG height,int type)
 				b+= temp_bmp[(i+2)*(width+6)+j+2]*-1;
 			}
 				bmp[(i-1)*width+j-3] = sqrt((a)*(a)+(b)*(b));
-			}else if(type==2)//索贝尔边缘算子
+			}else if(type==2)//锟斤拷锟斤拷锟斤拷锟斤拷缘锟斤拷锟斤拷
 			{
 				int a = temp_bmp[i*(width+6)+j] * -1;
 				a+= temp_bmp[i*(width+6)+j+2];
@@ -1523,10 +1523,10 @@ void MyProcess::SplitRoberts(BYTE *bmp,LONG width,LONG height,int type)
 void MyProcess::SplitKirsch(BYTE *bmp,LONG width,LONG height)
 {
 	LONG i,j;
-	//申请一个临时空间，由1包围bmp图像，方便进行模版处理
+	//锟斤拷锟斤拷一锟斤拷锟斤拷时锟秸间，锟斤拷1锟斤拷围bmp图锟今，凤拷锟斤拷锟斤拷锟斤拷模锟芥处锟斤拷
 	BYTE *temp_bmp = new BYTE[(width+6)*(height+2)];
 	BmpFilter(temp_bmp,bmp,width,height);
-	//模版滤波
+	//模锟斤拷锟剿诧拷
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
 		{
@@ -1534,8 +1534,8 @@ void MyProcess::SplitKirsch(BYTE *bmp,LONG width,LONG height)
 			for(g=0;g<4;g++)
 			{
 				LONG k,m,temp=0;
-			for(k=-1;k<kernel_kirsch[g].Dimention-1;k++)
-				for(m=-1;m<kernel_kirsch[g].Dimention-1;m++) 
+			for(k=-1;k<kernel_kirsch[g].Dimension-1;k++)
+				for(m=-1;m<kernel_kirsch[g].Dimension-1;m++) 
 				{
 					int a = temp_bmp[(i+k)*(width+6)+j+m*3];
 					int b = kernel_kirsch[g].Element[k+1][m+1];
@@ -1543,7 +1543,7 @@ void MyProcess::SplitKirsch(BYTE *bmp,LONG width,LONG height)
 				}
 				//temp/=kernel.Divisor;
 				//////////////////////////////////////////////////////////////////////////
-				//此处注意，不应将值给待处理对象，而应传给未处理的原图像
+				//锟剿达拷注锟解，锟斤拷应锟斤拷值锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟襟，讹拷应锟斤拷锟斤拷未锟斤拷锟斤拷锟斤拷原图锟斤拷
 				//	temp_bmp[i*(width+6)+j] = (BYTE)temp;
 				if(temp>max) max = temp;
 			}
@@ -1589,21 +1589,21 @@ void MyProcess::HoufuLine(BYTE *bmp,LONG width,LONG height)
 {
 	LONG i,j,angle,p;
 	BYTE *temp_bmp = new BYTE[width*height];
-	//图像二值化
+	//图锟斤拷锟斤拷值锟斤拷
 	for(i=0;i<height;i++)
 		for(j=0;j<width;j++)
 		{
 			if(bmp[i*width+j]>128) temp_bmp[i*width+j]=255;
 			else temp_bmp[i*width+j]=0;
 		}
-	//存储累计变量的数组
-		//最大距离
+	//锟芥储锟桔计憋拷锟斤拷锟斤拷锟斤拷锟斤拷
+		//锟斤拷锟斤拷锟斤拷锟斤拷
 	int maxDis = sqrt(width*width+height*height);
 	int *num = new int [360*maxDis];
-	//初始化数组
+	//锟斤拷始锟斤拷锟斤拷锟斤拷
 	memset(num,0,(360*maxDis)*sizeof(int));
-	//检测直线，p=xcos(angle)+ysin(angle);
-	//再找出最大的num[angle][p],即可确定一条直线
+	//锟斤拷锟斤拷直锟竭ｏ拷p=xcos(angle)+ysin(angle);
+	//锟斤拷锟揭筹拷锟斤拷锟斤拷锟斤拷num[angle][p],锟斤拷锟斤拷确锟斤拷一锟斤拷直锟斤拷
 	int max=0,maxa,maxp;
 	for(i=0;i<height;i++)
 		for(j=0;j<width;j++)
@@ -1621,7 +1621,7 @@ void MyProcess::HoufuLine(BYTE *bmp,LONG width,LONG height)
 				}
 			}
 		}
-	//找出直线的策略---数目大于一个值即认为是直线
+	//锟揭筹拷直锟竭的诧拷锟斤拷---锟斤拷目锟斤拷锟斤拷一锟斤拷值锟斤拷锟斤拷为锟斤拷直锟斤拷
 		int line = width/10;
 //	for(i=0;i<360;i++)
 //		for(j=0;j<width+height;j++)
@@ -1655,18 +1655,18 @@ void MyProcess::HoufuLine(BYTE *bmp,LONG width,LONG height)
 }
 int MyProcess::Threshold(BYTE *bmp,LONG width,LONG height)
 {
-	//得到灰度分布直方图数值
+	//锟矫碉拷锟揭度分诧拷直锟斤拷图锟斤拷值
 	int *grayInt = new int [256];
 	memset(grayInt,0,256*sizeof(int));
 	this->GetGrayIntensity(bmp,grayInt,width,height);
-	//定义阈值
+	//锟斤拷锟斤拷锟斤拷值
 	long T1=127,T2=0;
 	long i,j;
-	//迭代阈值选取
+	//锟斤拷锟斤拷锟斤拷值选取
 	long temp0=0,temp1=0,temp2=0,temp3=0;
 	while(1)
 	{
-		//定义临时变量
+		//锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷
 		for(i=0;i<T1+1;i++)
 		{
 			temp0+=grayInt[i]*i;
@@ -1678,11 +1678,11 @@ int MyProcess::Threshold(BYTE *bmp,LONG width,LONG height)
 			temp3+=grayInt[i];
 		}
 		T2 = (temp0/temp1+temp2/temp3)/2;
-		//迭代是否结束
+		//锟斤拷锟斤拷锟角凤拷锟斤拷锟斤拷
 		if(T1==T2) break;
 		else T1=T2;
 	}
-	//对bmp进行转换
+	//锟斤拷bmp锟斤拷锟斤拷转锟斤拷
 	for(i=0;i<height;i++)
 		for(j=0;j<width;j++)
 		{
@@ -1712,16 +1712,16 @@ void MyProcess::RgnGrow(BYTE *bmp,LONG width,LONG height,BYTE c1,BYTE c2)
 
 void MyProcess::Erosion(BYTE *bmp,LONG width,LONG height,KERNEL kernel)
 {
-	LONG i,j,k,m;//循环变量
-	LONG door=128;//像素阈值
+	LONG i,j,k,m;//循锟斤拷锟斤拷锟斤拷
+	LONG door=128;//锟斤拷锟斤拷锟斤拷值
 	BYTE *temp_bmp = new BYTE[(width+6)*(height+2)];
 	BmpFilter(temp_bmp,bmp,width,height);
-	//腐蚀处理，取各方向最大值
+	//锟斤拷蚀锟斤拷锟斤拷锟斤拷取锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
 		{
-			for(k=-1;k<kernel.Dimention-1;k++)
-				for(m=-1;m<kernel.Dimention-1;m++)
+			for(k=-1;k<kernel.Dimension-1;k++)
+				for(m=-1;m<kernel.Dimension-1;m++)
 				{
 					int a = temp_bmp[(i+k)*(width+6)+j+m*3];
 					int b = kernel.Element[k+1][m+1];
@@ -1733,16 +1733,16 @@ void MyProcess::Erosion(BYTE *bmp,LONG width,LONG height,KERNEL kernel)
 }
 void MyProcess::Dilation(BYTE *bmp,LONG width,LONG height,KERNEL kernel)
 {
-	LONG i,j,k,m;//循环变量
-	LONG door=128;//像素阈值
+	LONG i,j,k,m;//循锟斤拷锟斤拷锟斤拷
+	LONG door=128;//锟斤拷锟斤拷锟斤拷值
 	BYTE *temp_bmp = new BYTE[(width+6)*(height+2)];
 	BmpFilter(temp_bmp,bmp,width,height);
-	//膨胀处理，取各方向最小值
+	//锟斤拷锟酵达拷锟斤拷锟斤拷取锟斤拷锟斤拷锟斤拷锟斤拷小值
 	for(i=1;i<height+1;i++)
 		for(j=3;j<width+3;j++)
 		{
-			for(k=-1;k<kernel.Dimention-1;k++)
-				for(m=-1;m<kernel.Dimention-1;m++)
+			for(k=-1;k<kernel.Dimension-1;k++)
+				for(m=-1;m<kernel.Dimension-1;m++)
 				{
 					int a = temp_bmp[(i+k)*(width+6)+j+m*3];
 					int b = kernel.Element[k+1][m+1];
